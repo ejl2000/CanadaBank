@@ -10,6 +10,8 @@ public class Name
 {
     private final String first; // First name
     private final String last;  // Last name
+    private static final int CHARACTER_INDEX_ZERO = 0;
+    private static final int MAX_NAME_LENGTH = 45;
 
     /**
      * Constructs a Name object with the specified first and last name.
@@ -25,7 +27,7 @@ public class Name
         {
             throw new IllegalArgumentException("First and last names must not be null or blank.");
         }
-        if (first.length() > 45 || last.length() > 45)
+        if (first.length() > MAX_NAME_LENGTH || last.length() > MAX_NAME_LENGTH)
         {
             throw new IllegalArgumentException("First and last names must not exceed 45 characters.");
         }
@@ -45,7 +47,8 @@ public class Name
      */
     public String getInitials()
     {
-        return Character.toString(first.charAt(0)).toUpperCase() + "." + Character.toString(last.charAt(0)).toUpperCase() + ".";
+        return Character.toString(first.charAt(CHARACTER_INDEX_ZERO )).toUpperCase() + "." +
+                Character.toString(last.charAt(CHARACTER_INDEX_ZERO )).toUpperCase() + ".";
     }
 
     /**

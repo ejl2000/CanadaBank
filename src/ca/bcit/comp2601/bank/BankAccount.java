@@ -8,10 +8,11 @@ package ca.bcit.comp2601.bank;
  */
 public class BankAccount
 {
-    private BankClient client;      // Client associated with the account
+    private final BankClient client;      // Client associated with the account
     private double balanceUsd;      // Balance in USD
-    private String pin;             // PIN for accessing the account
-    private String accountNumber;   // Account number (7 letters)
+    private final String pin;             // PIN for accessing the account
+    private final String accountNumber;   // Account number (7 letters)
+    private static final int AMOUNT_ZERO = 0;
 
     /**
      * Constructs a BankAccount object with the specified client, balance, PIN, and account number.
@@ -50,11 +51,12 @@ public class BankAccount
      */
     public boolean withdraw(final double amountUsd)
     {
-        if (amountUsd <= 0 || balanceUsd < amountUsd)
+        if (amountUsd <= AMOUNT_ZERO  || balanceUsd < amountUsd)
         {
             return false; // Reject negative amounts or amounts exceeding the balance
         }
         balanceUsd -= amountUsd;
+
         return true;
     }
 
@@ -67,7 +69,7 @@ public class BankAccount
      */
     public boolean withdraw(final double amountUsd, final String pinToMatch)
     {
-        if (amountUsd <= 0 || !pin.equals(pinToMatch) || balanceUsd < amountUsd)
+        if (amountUsd <= AMOUNT_ZERO  || !pin.equals(pinToMatch) || balanceUsd < amountUsd)
         {
             return false;
         }

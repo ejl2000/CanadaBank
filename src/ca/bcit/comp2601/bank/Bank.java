@@ -7,8 +7,9 @@ import java.util.ArrayList;
  */
 public class Bank
 {
-    private ArrayList<BankAccount> accounts; // List of bank accounts
-    private Person ceo; // CEO of the bank
+    private final ArrayList<BankAccount> accounts; // List of bank accounts
+    private final Person ceo; // CEO of the bank
+    private static final int POSITION_ZERO = 0;
 
     /**
      * Constructs a Bank object with an empty list of bank accounts and sets the CEO.
@@ -65,7 +66,7 @@ public class Bank
      */
     public BankAccount[] getAllAccounts()
     {
-        return accounts.toArray(new BankAccount[0]);
+        return accounts.toArray(new BankAccount[POSITION_ZERO]);
     }
 
     /**
@@ -80,7 +81,9 @@ public class Bank
             return null;
         }
 
-        BankAccount maxAccount = accounts.get(0);
+        BankAccount maxAccount;
+        maxAccount = accounts.get(POSITION_ZERO);
+
         for (final BankAccount account : accounts)
         {
             if (account.getBalanceUsd() > maxAccount.getBalanceUsd())

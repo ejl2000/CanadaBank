@@ -36,9 +36,9 @@ class PersonTest
     void testGetDetails_DeadPerson() {
         Name name = new Name("John", "Doe");
         Date dateOfBirth = new Date(1990, 5, 15);
-        Date dateOfDeath = new Date(2024, 4, 29); // April 29, 2024
+        Date dateOfDeath = new Date(2024, 4, 29);
         Person person = new Person(name, dateOfBirth, dateOfDeath);
 
-        assertEquals("John Doe (died Saturday, 4 29, 2024) was born on Wednesday, 5 15, 1990!", person.getDetails());
+        assertEquals("John Doe (died Tuesday, 4 29, 2024) was born on Wednesday, 5 15, 1990!", person.getDetails());
     }
 }

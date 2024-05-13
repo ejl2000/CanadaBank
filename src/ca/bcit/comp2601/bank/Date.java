@@ -1,24 +1,56 @@
 package ca.bcit.comp2601.bank;
 
-import java.util.*;
-
 /**
  * The Date class represents a date with year, month, and day components.
  *
  * @author Emma Lee
  * @version 2024
  */
-public class Date {
-    private int year;   // Year
-    private int month;  // Month
-    private int day;    // Day
-    private static final int SATURDAY = 0;
-    private static final int SUNDAY = 1;
-    private static final int MONDAY = 2;
-    private static final int TUESDAY = 3;
-    private static final int WEDNESDAY = 4;
-    private static final int THURSDAY = 5;
-    private static final int FRIDAY = 6;
+public class Date
+{
+    private final int year;   // Year
+    private final int month;  // Month
+    private final int day;    // Day
+    private static final String[] DAYS_OF_WEEK = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+    private static final int INT_ZERO = 0;
+    private static final int MIN_YEAR = 1;
+    private static final int MIN_MONTH = 1;
+    private static final int MAX_MONTH = 12;
+    private static final int MIN_DAY = 1;
+    private static final int MONTH_WITH_31_DAYS = 31;
+    private static final int JANUARY = 1;
+    private static final int FEBRUARY = 2;
+    private static final int MARCH = 3;
+    private static final int APRIL = 4;
+    private static final int MAY = 5;
+    private static final int JUNE = 6;
+    private static final int JULY = 7;
+    private static final int AUGUST = 8;
+    private static final int SEPTEMBER = 9;
+    private static final int OCTOBER = 10;
+    private static final int NOVEMBER = 11;
+    private static final int DECEMBER = 12;
+    private static final int START_OF_TWENTYFIRST_CENTURY= 2000;
+    private static final int START_OF_TWENTYTIETH_CENTURY= 1900;
+    private static final int START_OF_NINETEENTH_CENTURY= 1800;
+    private static final int LEAP_YEAR = 1;
+    private static final int NOT_LEAP_YEAR = 0;
+    private static final int MONTH_MULTIPLIER = 13;
+    private static final int MONTH_ADDITION = 1;
+    private static final int MONTH_DIVIDER = 5;
+    private static final int DAYS_IN_WEEK = 7;
+    private static final int CENTURY_ADJUSTMENT_ZERO = 0;
+    private static final int CENTURY_ADJUSTMENT_TWO = 2;
+    private static final int CENTURY_ADJUSTMENT_SIX = 6;
+    private static final int LEAP_MONTH = 3;
+    private static final int TWELVE_YEARS = 12;
+    private static final int DAYS_IN_JANUARY = 31;
+    private static final int DAYS_IN_APRIL = 30;
+    private static final int DAYS_IN_FEB_LEAP_YEAR = 29;
+    private static final int DAYS_IN_FEB_NON_LEAP_YEAR = 28;
+    private static final int DIVISIBLE_BY_FOUR = 4;
+    private static final int DIVISIBLE_BY_HUNDRED = 100;
+    private static final int DIVISIBLE_BY_FOUR_HUNDRED = 400;
 
     /**
      * Constructs a Date object with the specified year, month, and day.
@@ -30,13 +62,16 @@ public class Date {
      */
     public Date(final int year, final int month, final int day)
     {
-        if (year < 1 || year > java.time.LocalDate.now().getYear()) {
+        if (year < MIN_YEAR || year > getCurrentYear())
+        {
             throw new IllegalArgumentException("Invalid year.");
         }
-        if (month < 1 || month > 12) {
+        if (month < MIN_MONTH || month > MAX_MONTH)
+        {
             throw new IllegalArgumentException("Invalid month.");
         }
-        if (day < 1 || day > getDaysInMonth(year, month)) {
+        if (day < MIN_DAY  || day > getDaysInMonth(year, month))
+        {
             throw new IllegalArgumentException("Invalid day.");
         }
         this.year = year;
@@ -57,17 +92,15 @@ public class Date {
     /**
      * Returns the day of the week for the date.
      *
+     * @param year  The year of the date.
+     * @param month The month of the date.
+     * @param day   The day of the date.
      * @return The day of the week as a string (e.g., "Monday", "Tuesday", etc.).
      */
     public String getDayOfWeek(final int year, final int month, final int day)
     {
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        calendar.set(year, month - 1, day); // Month is zero-based in Calendar
-
-        int dayOfWeek = calendar.get(java.util.Calendar.DAY_OF_WEEK);
-        String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-
-        return daysOfWeek[dayOfWeek - 1]; // Adjust to start from Sunday
+        int dayOfWeek = calculateDayOfWeek(year, month, day);
+        return DAYS_OF_WEEK[dayOfWeek];
     }
 
     /**
@@ -111,14 +144,65 @@ public class Date {
     {
         switch (month)
         {
-            case 1, 3, 5, 7, 8, 10, 12:
-                return 31;
-            case 4, 6, 9, 11:
-                return 30;
-            case 2:
-                return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28;
+            case JANUARY, MARCH, MAY, JULY, AUGUST, OCTOBER, DECEMBER:
+                return DAYS_IN_JANUARY;
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER:
+                return DAYS_IN_APRIL;
+            case FEBRUARY:
+                return (year % DIVISIBLE_BY_FOUR == INT_ZERO && year % DIVISIBLE_BY_HUNDRED != INT_ZERO) ||
+                        year % DIVISIBLE_BY_FOUR_HUNDRED  == INT_ZERO ? DAYS_IN_FEB_LEAP_YEAR : DAYS_IN_FEB_NON_LEAP_YEAR;
             default:
                 throw new IllegalArgumentException("Invalid month.");
         }
+    }
+
+    /**
+     * Returns the current year.
+     *
+     * @return The current year.
+     */
+    private int getCurrentYear()
+    {
+        return java.time.LocalDate.now().getYear();
+    }
+
+    /**
+     * Calculates the day of the week for the date.
+     *
+     * @param year  The year.
+     * @param month The month.
+     * @param day   The day.
+     * @return The day of the week (0 for Saturday, 1 for Sunday, etc.).
+     */
+    private int calculateDayOfWeek(int year, int month, final int day)
+    {
+        // Adjustments for different centuries
+        int centuryAdjustment;
+        centuryAdjustment =  CENTURY_ADJUSTMENT_ZERO;
+
+        if (year >= START_OF_TWENTYFIRST_CENTURY)
+        {
+            centuryAdjustment = CENTURY_ADJUSTMENT_SIX;
+        }
+        else if (year >= START_OF_TWENTYTIETH_CENTURY && year < START_OF_TWENTYFIRST_CENTURY)
+        {
+            centuryAdjustment = CENTURY_ADJUSTMENT_ZERO;
+        }
+        else if (year >= START_OF_NINETEENTH_CENTURY && year < START_OF_TWENTYTIETH_CENTURY)
+        {
+            centuryAdjustment =  CENTURY_ADJUSTMENT_TWO;
+        }
+
+        // Adjustments for leap years and January/February
+        if (month < LEAP_MONTH)
+        {
+            year -= LEAP_YEAR;
+            month += TWELVE_YEARS;
+        }
+        int leapYearAdjustment = ((year % DIVISIBLE_BY_FOUR == INT_ZERO && year % DIVISIBLE_BY_HUNDRED != INT_ZERO)
+                || year % DIVISIBLE_BY_FOUR_HUNDRED == INT_ZERO) ? LEAP_YEAR : NOT_LEAP_YEAR;
+        int monthCode = (MONTH_MULTIPLIER * (month + MONTH_ADDITION)) / MONTH_DIVIDER;
+        int result = (day + monthCode + year + leapYearAdjustment + centuryAdjustment) % DAYS_IN_WEEK;
+        return result;
     }
 }

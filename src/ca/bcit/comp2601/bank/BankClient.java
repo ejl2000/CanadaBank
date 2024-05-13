@@ -28,6 +28,7 @@ public class BankClient extends Person
                       final Date dateJoinedTheBank)
     {
         super(name, dateOfBirth, dateOfDeath);
+
         this.clientId = clientId;
         this.dateJoinedTheBank = dateJoinedTheBank;
     }
@@ -39,12 +40,18 @@ public class BankClient extends Person
      * @return The details of the bank client as a string.
      */
     @Override
-    public String getDetails() {
-        StringBuilder details = new StringBuilder(super.getDetails());
+    public String getDetails()
+    {
+        final StringBuilder details;
+        details = new StringBuilder(super.getDetails());
+
         details.append(" client #").append(clientId).append(" ");
-        if (isAlive()) {
+        if (isAlive())
+        {
             details.append("(alive)");
-        } else {
+        }
+        else
+        {
             details.append("(died ").append(dateOfDeath.getDayOfWeek(dateOfDeath.getYear(), dateOfDeath.getMonth(), dateOfDeath.getDay())).append(", ")
                     .append(dateOfDeath.getMonth()).append(" ")
                     .append(dateOfDeath.getDay()).append(", ")

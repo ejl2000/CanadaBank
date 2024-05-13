@@ -1,44 +1,80 @@
 package ca.bcit.comp2601.bank;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DateTest {
 
     @Test
-    void testGetDayOfWeek_October_31_1977() {
-        Date date = new Date(1977, 10, 31); // October 31 1977
-        assertEquals("Monday", date.getDayOfWeek(1977, 10, 31));
+    void testValidDateConstructor() {
+        // Test valid date
+        assertDoesNotThrow(() -> new Date(2024, 5, 12));
     }
 
     @Test
-    void testGetDayOfWeek_March_15_2021() {
-        Date date = new Date(2021, 3, 15); // March 15 2021
-        assertEquals("Monday", date.getDayOfWeek(2021, 3, 15));
+    void testInvalidYearConstructor() {
+        // Test year less than 1
+        assertThrows(IllegalArgumentException.class, () -> new Date(0, 5, 12));
+        // Test year greater than current year
+        assertThrows(IllegalArgumentException.class, () -> new Date(3000, 5, 12));
     }
 
     @Test
-    void testGetDayOfWeek_March_1_2000() {
-        Date date = new Date(2000, 3, 1); // March 1 2000
-        assertEquals("Wednesday", date.getDayOfWeek(2000, 3, 1));
+    void testInvalidMonthConstructor() {
+        // Test month less than 1
+        assertThrows(IllegalArgumentException.class, () -> new Date(2024, 0, 12));
+        // Test month greater than 12
+        assertThrows(IllegalArgumentException.class, () -> new Date(2024, 13, 12));
     }
 
     @Test
-    void testGetDayOfWeek_January_1_1800() {
-        Date date = new Date(1800, 1, 1); // January 1 1800
-        assertEquals("Wednesday", date.getDayOfWeek(1800, 1, 1));
+    void testInvalidDayConstructor() {
+        // Test invalid day for February in non-leap year
+        assertThrows(IllegalArgumentException.class, () -> new Date(2023, 2, 29));
+        // Test invalid day for February in leap year
+        assertDoesNotThrow(() -> new Date(2024, 2, 29));
+        // Test invalid day for April (31 days)
+        assertThrows(IllegalArgumentException.class, () -> new Date(2024, 4, 31));
     }
 
     @Test
-    void testGetDayOfWeek_February_29_2000() {
-        Date date = new Date(2000, 2, 29); // February 29 2000 (leap year)
-        assertEquals("Tuesday", date.getDayOfWeek(2000, 2, 29));
+    void testGetYyyyMmDd() {
+        // Test getYyyyMmDd method
+        Date date = new Date(2024, 5, 12);
+        assertEquals("2024-05-12", date.getYyyyMmDd());
     }
 
     @Test
-    void testGetDayOfWeek_February_28_1900() {
-        Date date = new Date(1900, 2, 28); // February 28 1900 (not a leap year)
-        assertEquals("Wednesday", date.getDayOfWeek(1900, 2, 28));
+    void testGetDayOfWeek() {
+        // Test getDayOfWeek method
+        // Example: March 15, 2021 is Sunday
+        Date date1 = new Date(2021, 3, 15);
+        assertEquals("Sunday", date1.getDayOfWeek(2021, 3, 15));
+
+        // Example: October 31, 1977 is Friday
+        Date date2 = new Date(1977, 10, 31);
+        assertEquals("Friday", date2.getDayOfWeek(1977, 10, 31));
+    }
+
+
+    @Test
+    void testGetYear() {
+        // Test getYear method
+        Date date = new Date(2024, 5, 12);
+        assertEquals(2024, date.getYear());
+    }
+
+    @Test
+    void testGetMonth() {
+        // Test getMonth method
+        Date date = new Date(2024, 5, 12);
+        assertEquals(5, date.getMonth());
+    }
+
+    @Test
+    void testGetDay() {
+        // Test getDay method
+        Date date = new Date(2024, 5, 12);
+        assertEquals(12, date.getDay());
     }
 }

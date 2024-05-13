@@ -13,6 +13,7 @@ public class Person
     private Name name;          // Name of the person
     private Date dateOfBirth;   // Date of birth
     public Date dateOfDeath;   // Date of death (null if the person is alive)
+    private static final int ONE_MONTH = 1;
 
     /**
      * Constructs a Person object with the specified name, date of birth, and date of death.
@@ -35,8 +36,11 @@ public class Person
      *
      * @return The details of the person as a String.
      */
-    public String getDetails() {
-        StringBuilder details = new StringBuilder();
+    public String getDetails()
+    {
+        final StringBuilder details;
+        details = new StringBuilder();
+
         details.append(name.getFullName()).append(" ");
 
         // Check if the person is alive
@@ -45,7 +49,7 @@ public class Person
         } else {
             // Use Calendar to get the correct day of the week for the date of death
             Calendar deathCalendar = Calendar.getInstance();
-            deathCalendar.set(dateOfDeath.getYear(), dateOfDeath.getMonth() - 1, dateOfDeath.getDay());
+            deathCalendar.set(dateOfDeath.getYear(), dateOfDeath.getMonth() - ONE_MONTH, dateOfDeath.getDay());
             int deathDayOfWeek = deathCalendar.get(Calendar.DAY_OF_WEEK);
             String deathDayOfWeekStr = getDayOfWeek(deathDayOfWeek);
 
@@ -58,7 +62,7 @@ public class Person
 
         // Use Calendar to get the correct day of the week for the date of birth
         Calendar birthCalendar = Calendar.getInstance();
-        birthCalendar.set(dateOfBirth.getYear(), dateOfBirth.getMonth() - 1, dateOfBirth.getDay());
+        birthCalendar.set(dateOfBirth.getYear(), dateOfBirth.getMonth() - ONE_MONTH, dateOfBirth.getDay());
         int birthDayOfWeek = birthCalendar.get(Calendar.DAY_OF_WEEK);
         String birthDayOfWeekStr = getDayOfWeek(birthDayOfWeek);
 
@@ -71,14 +75,14 @@ public class Person
         return details.toString();
     }
 
-
     /**
      * Returns the day of the week as a string.
      *
      * @param dayOfWeek The day of the week as an integer (Calendar.DAY_OF_WEEK).
      * @return The day of the week as a string.
      */
-    private String getDayOfWeek(int dayOfWeek) {
+    private String getDayOfWeek(final int dayOfWeek)
+    {
         String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         return daysOfWeek[dayOfWeek]; // No need to adjust to start from Sunday (0-indexed)
     }
@@ -153,4 +157,3 @@ public class Person
         this.dateOfDeath = dateOfDeath;
     }
 }
-
