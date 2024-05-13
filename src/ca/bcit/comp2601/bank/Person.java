@@ -5,7 +5,7 @@ import java.util.Calendar;
 /**
  * The Person class represents a person with a name, date of birth, and date of death (if applicable).
  *
- * @author Emma Lee
+ * @author Emma, Raaz
  * @version 2024
  */
 public class Person

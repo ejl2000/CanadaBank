@@ -3,7 +3,7 @@ package ca.bcit.comp2601.bank;
 /**
  * The BankAccount class represents a bank account.
  *
- * @author Emma Lee
+ * @author Emma, Raaz
  * @version 2024
  */
 public class BankAccount

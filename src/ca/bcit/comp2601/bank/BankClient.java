@@ -3,7 +3,7 @@ package ca.bcit.comp2601.bank;
 /**
  * The BankClient class represents a client of a bank, extending the Person class.
  *
- * @author Emma Lee
+ * @author Emma, Raaz
  * @version 2024
  */
 public class BankClient extends Person

@@ -3,7 +3,7 @@ package ca.bcit.comp2601.bank;
 /**
  * The Date class represents a date with year, month, and day components.
  *
- * @author Emma Lee
+ * @author Emma, Raaz
  * @version 2024
  */
 public class Date

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 /**
  * The Bank class represents a bank that manages a list of bank accounts.
+ *
+ * @author Emma, Raaz
+ * @version 2024
  */
 public class Bank
 {

@@ -3,7 +3,7 @@ package ca.bcit.comp2601.bank;
 /**
  * The Name class represents a person's first and last name.
  *
- * @author Emma Lee
+ * @author Emma, Raaz
  * @version 2024
  */
 public class Name
