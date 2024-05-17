@@ -16,10 +16,8 @@ public class Name
     /**
      * Constructs a Name object with the specified first and last name.
      *
-     * @param first The first name of the person.
-     * @param last  The last name of the person.
-     * @throws IllegalArgumentException if first or last is null, blank, contains "admin" (case insensitive),
-     *                                  or exceeds 45 characters.
+     * @param first The first name.
+     * @param last  The last name.
      */
     public Name(final String first, final String last)
     {
