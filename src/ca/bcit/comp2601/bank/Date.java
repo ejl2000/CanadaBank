@@ -59,7 +59,9 @@ public class Date
      * @param month The month of the date (1 for January, 2 for February, etc.).
      * @param day   The day of the month.
      */
-    public Date(final int year, final int month, final int day)
+    public Date(final int year,
+                final int month,
+                final int day)
     {
         if (year < MIN_YEAR || year > getCurrentYear())
         {
@@ -96,7 +98,9 @@ public class Date
      * @param day   The day of the date.
      * @return The day of the week as a string (e.g., "Monday", "Tuesday", etc.).
      */
-    public String getDayOfWeek(final int year, final int month, final int day)
+    public String getDayOfWeek(final int year,
+                               final int month,
+                               final int day)
     {
         int dayOfWeek = calculateDayOfWeek(year, month, day);
         return DAYS_OF_WEEK[dayOfWeek];

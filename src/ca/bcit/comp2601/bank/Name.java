@@ -19,7 +19,8 @@ public class Name
      * @param first The first name.
      * @param last  The last name.
      */
-    public Name(final String first, final String last)
+    public Name(final String first,
+                final String last)
     {
         if (first == null || last == null || first.isBlank() || last.isBlank())
         {
