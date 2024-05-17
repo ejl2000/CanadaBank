@@ -76,7 +76,7 @@ public class Person
     }
 
     /**
-     * Returns the day of the week as a string.
+     * Returns the day of the week as a String.
      *
      * @param dayOfWeek The day of the week as an integer (Calendar.DAY_OF_WEEK).
      * @return The day of the week as a string.
