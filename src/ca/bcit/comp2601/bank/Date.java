@@ -58,7 +58,6 @@ public class Date
      * @param year  The year of the date.
      * @param month The month of the date (1 for January, 2 for February, etc.).
      * @param day   The day of the month.
-     * @throws IllegalArgumentException if the year, month, or day is invalid.
      */
     public Date(final int year, final int month, final int day)
     {

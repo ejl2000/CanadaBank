@@ -29,7 +29,6 @@ public class Bank
      * Adds a new bank account to the bank.
      *
      * @param newAccount The new bank account to add.
-     * @throws IllegalArgumentException if an account with the same account number already exists.
      */
     public void addAccount(final BankAccount newAccount)
     {
